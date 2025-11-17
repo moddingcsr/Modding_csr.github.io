@@ -1,5 +1,4 @@
-# Modding_csr.github.io
-CONSOLE DEX-CEX-HEN CRÉATION : MOD-TOOL-THEME ANCIEN DÉVELOPPER : SITE[(FRENCHMODDING,XTREMECOMMMUNITY FERMÉ)] EN COUR D'UN NOUVEAU SITE. <!DOCTYPE html><html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -88,3 +87,122 @@ CONSOLE DEX-CEX-HEN CRÉATION : MOD-TOOL-THEME ANCIEN DÉVELOPPER : SITE[(FRENCH
 
 </head>
 <body><div class
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modding PS3/PS4</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #000;
+  color: #fff;
+}
+
+/* TOP BAR */
+.topbar {
+  background: #6a00ff;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+
+.menu-btn {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* MENU */
+.menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100vh;
+  background: #fff;
+  padding: 30px 20px;
+  transition: 0.3s;
+  color: black;
+  z-index: 1000;
+}
+
+.menu.open {
+  left: 0;
+}
+
+.menu a {
+  display: block;
+  padding: 15px 0;
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+/* TITRES CATÉGORIES */
+.category {
+  margin: 50px 20px 20px 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.card {
+  background: #111;
+  margin: 10px 20px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #444;
+}
+.card h3 {
+  margin: 0;
+  font-size: 22px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="topbar">
+  <div>Modding PS3 / PS4</div>
+  <div class="menu-btn" onclick="openMenu()">☰</div>
+</div>
+
+<!-- MENU LATERAL -->
+<div id="sideMenu" class="menu">
+  <a href="#">CFW</a>
+  <a href="#">HEN</a>
+  <a href="#">HFW</a>
+  <a href="#">MOD MENUS</a>
+  <a href="#">RTM TOOLS</a>
+  <a href="#">JEUX / PKG</a>
+  <a href="#">UNBAN</a>
+  <a href="#">TUTORIELS</a>
+  <a href="#" onclick="closeMenu()">Fermer</a>
+</div>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="category">📦 CFW</div>
+<div class="card"><h3>CFW 4.90 Evilnat</h3></div>
+<div class="card"><h3>CFW Rebug</h3></div>
+
+<div class="category">🟡 HEN</div>
+<div class="card"><h3>HEN 4.90</h3></div>
+
+<div class="category">🔵 HFW</div>
+<div class="card"><h3>HFW 4.90</h3></div>
+
+<script>
+function openMenu() {
+  document.getElementById("sideMenu").classList.add("open");
+}
+function closeMenu() {
+  document.getElementById("sideMenu").classList.remove("open");
+}
+</script>
+
+</body>
+</html>
