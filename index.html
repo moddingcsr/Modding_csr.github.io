@@ -6,43 +6,55 @@
 <title>ModdingCSR</title>
 
 <style>
+    /* --- RESET --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-        margin: 0;
         font-family: "Courier New", monospace;
-        background: url('https://i.imgur.com/6IUbXG5.png');
-        background-size: cover;
-        background-attachment: fixed;
         color: #00ff00;
-        text-shadow: 0 0 5px #00ff00;
+        background: black;
+        overflow-x: hidden;
+    }
+
+    /* CANVAS MATRIX */
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
     }
 
     /* HEADER */
     header {
         text-align: center;
-        padding: 20px;
+        padding: 30px 0 10px;
         font-size: 40px;
         color: #00ff00;
-        letter-spacing: 3px;
-        font-weight: bold;
+        text-shadow: 0 0 10px #00ff00;
     }
 
     /* NAVBAR */
     nav {
         display: flex;
         justify-content: center;
-        background: rgba(0, 0, 0, 0.85);
+        gap: 20px;
         padding: 15px;
+        background: rgba(0,0,0,0.6);
         border-top: 2px solid #00ff00;
         border-bottom: 2px solid #00ff00;
-        box-shadow: 0 0 10px #00ff00;
+        box-shadow: 0 0 15px #00ff00;
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
 
     nav a {
         color: #00ff00;
         text-decoration: none;
-        margin: 0 15px;
         font-size: 18px;
-        transition: 0.2s;
+        cursor: pointer;
     }
 
     nav a:hover {
@@ -50,7 +62,7 @@
         text-shadow: 0 0 10px #00ff00;
     }
 
-    /* MENU DÉROULANT */
+    /* MENU DÉROULANTS */
     .dropdown {
         position: relative;
         display: inline-block;
@@ -59,18 +71,18 @@
     .dropdown-content {
         display: none;
         position: absolute;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.95);
         border: 1px solid #00ff00;
+        min-width: 200px;
         box-shadow: 0 0 15px #00ff00;
-        min-width: 180px;
         z-index: 1000;
     }
 
     .dropdown-content a {
-        color: #00ff00;
-        padding: 10px;
         display: block;
+        padding: 10px;
         text-decoration: none;
+        color: #00ff00;
     }
 
     .dropdown-content a:hover {
@@ -85,7 +97,7 @@
     .main-image {
         width: 100%;
         text-align: center;
-        margin-top: 140px; /* ESPACE entre le haut et l'image */
+        margin-top: 120px;
         margin-bottom: 40px;
     }
 
@@ -100,31 +112,56 @@
     .content {
         text-align: center;
         padding: 20px;
-        margin-top: 20px;
     }
 
     h2 {
         font-size: 30px;
         text-shadow: 0 0 10px #00ff00;
+        margin-bottom: 10px;
     }
 
 </style>
 </head>
 <body>
 
+<canvas id="matrix"></canvas>
+
 <header>ModdingCSR</header>
 
-<!-- MENU COMPLET -->
+<!-- NAVBAR AVEC MENU DÉROULANTS -->
 <nav>
 
     <a href="#">Accueil</a>
-    <a href="#">Modding PS3</a>
-    <a href="#">Modding PS4</a>
-    <a href="#">Tools</a>
 
-    <!-- MENU DÉROULANT PKG/MODS -->
     <div class="dropdown">
-        <a href="#">PKG / Mods ▼</a>
+        <a>Modding PS3 ▾</a>
+        <div class="dropdown-content">
+            <a href="#">Homebrew</a>
+            <a href="#">Mods</a>
+            <a href="#">PKG</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a>Modding PS4 ▾</a>
+        <div class="dropdown-content">
+            <a href="#">Payloads</a>
+            <a href="#">Cheats</a>
+            <a href="#">PKG</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a>Tools ▾</a>
+        <div class="dropdown-content">
+            <a href="#">Dump Tools</a>
+            <a href="#">Mod Menu Tools</a>
+            <a href="#">Save Editors</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a>PKG / Mods ▾</a>
         <div class="dropdown-content">
             <a href="#">Black Ops 1</a>
             <a href="#">Black Ops 2</a>
@@ -138,24 +175,74 @@
         </div>
     </div>
 
-    <a href="#">XMB Mods</a>
-    <a href="#">Téléchargements</a>
+    <div class="dropdown">
+        <a>XMB Mods ▾</a>
+        <div class="dropdown-content">
+            <a href="#">Themes</a>
+            <a href="#">Icons</a>
+            <a href="#">Textures</a>
+        </div>
+    </div>
 
-    <!-- DISCORD -->
+    <div class="dropdown">
+        <a>Téléchargements ▾</a>
+        <div class="dropdown-content">
+            <a href="#">PS3 Tools</a>
+            <a href="#">PS4 Tools</a>
+            <a href="#">Fichiers utiles</a>
+        </div>
+    </div>
+
     <a href="https://discord.gg/fzwajWwYq" target="_blank">Discord</a>
 
 </nav>
 
 <!-- IMAGE PRINCIPALE -->
 <div class="main-image">
-    <img src="https://raw.githubusercontent.com/moddingcsr/Modding_csr.github.io/main/IMG_1020.JPEG" alt="Image ModdingCSR">
+    <img src="https://raw.githubusercontent.com/moddingcsr/Modding_csr.github.io/main/IMG_1020.JPEG">
 </div>
 
-<!-- TEXTE -->
 <div class="content">
     <h2>Bienvenue sur ModdingCSR</h2>
-    <p>Votre espace modding PS3 / PS4. Personnalisez cette page comme vous voulez !</p>
+    <p>Votre espace modding PS3 / PS4.</p>
 </div>
+
+<!-- SCRIPT MATRIX -->
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVXYZ";
+const fontSize = 15;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+
+for (let x = 0; x < columns; x++) drops[x] = 1;
+
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 35);
+</script>
 
 </body>
 </html>
