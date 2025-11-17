@@ -207,15 +207,3 @@ function closeMenu() {
 </body>
 </html>
 <body> 
-function  toggleBlurWithAnimation ( canvasId, interval = 1000 ) { 
-    const canvas = document.getElementById ( canvasId ); 
-    let lastTime = 0 ; 
-    let isBlurred = false ; const 
-
-    toggleBlur  = ( timestamp ) => { 
-        if (timestamp - lastTime >= interval) { lastTime
-             = timestamp; 
-            isBlurred = !isBlurred; 
-            canvas.classList.toggle ( " blur" , isBlurred);         } requestAnimationFrame (toggleBlur);     }; requestAnimationFrame (toggleBlur); }
-            const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890アイウエオ..." ; 
-const characters = matrixChars. split ( "" );
