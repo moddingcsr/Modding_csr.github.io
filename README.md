@@ -207,3 +207,122 @@ function closeMenu() {
 </body>
 </html>
 <body> 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Site de modding PS3/PS4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Style général */
+    html, body { margin: 0; padding: 0; background: #000; color: #0F0; font-family: Arial, sans-serif; }
+    h2, h3 { cursor: pointer; }
+    a { color: #0F0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* Canvas Matrix */
+    #matrixCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    /* Sections */
+    .section { padding: 20px; }
+    .mods { display: none; margin-top: 10px; }
+    .mod { background: rgba(0, 0, 0, 0.7); border: 1px solid #0F0; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
+    /* Boutons */
+    button.cat-btn { background: transparent; border: 1px solid #0F0; color: #0F0; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+    button.cat-btn:hover { background: #0F0; color: #000; }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas pour l'effet Matrix -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- Liste des catégories -->
+  <div class="section">
+    <h2>Catégories de jeux</h2>
+    <button class="cat-btn" data-cat="bo2">Black Ops 2</button>
+    <button class="cat-btn" data-cat="mw3">Modern Warfare 3</button>
+  </div>
+
+  <!-- Section des mods pour Black Ops 2 -->
+  <div class="section mods" id="mods-bo2">
+    <h3>Mods Black Ops 2</h3>
+    <div class="mod">
+      <h4>Mod Extra Armes</h4>
+      <p>Ajoute de nouvelles armes au jeu.</p>
+      <a href="https://raw.githubusercontent.com/monutilisateur/monrepo/main/bo2/extra-armes.zip" download>Télécharger</a>
+    </div>
+    <div class="mod">
+      <h4>Script XP Infini</h4>
+      <p>Augmente votre XP jusqu\'à l\'infini.</p>
+      <a href="https://raw.githubusercontent.com/monutilisateur/monrepo/main/bo2/xp-infini.zip" download>Télécharger</a>
+    </div>
+  </div>
+
+  <!-- Section des mods pour MW3 -->
+  <div class="section mods" id="mods-mw3">
+    <h3>Mods Modern Warfare 3</h3>
+    <div class="mod">
+      <h4>Outils CoDPoint</h4>
+      <p>Permet de modifier vos points CoD.</p>
+      <a href="https://raw.githubusercontent.com/monutilisateur/monrepo/main/mw3/codpoint-tool.zip" download>Télécharger</a>
+    </div>
+  </div>
+
+  <!-- Script JavaScript -->
+  <script>
+    // Animation Matrix sur le canvas
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+    // Adapter au viewport
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Caractères pour l'effet Matrix
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function drawMatrix() {
+      // Transparent pour effet de traînée
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0"; 
+      ctx.font = fontSize + "px monospace";
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        // Réinitialiser la goutte aléatoirement quand elle atteint le bas
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    let matrixInterval = setInterval(drawMatrix, 50);
+
+    // Gestion du clic sur les catégories pour afficher/masquer les sections
+    const buttons = document.querySelectorAll('.cat-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Masquer le canvas Matrix (puisqu'on est dans une catégorie)
+        canvas.style.display = 'none';
+        // Cacher toutes les sections de mods
+        document.querySelectorAll('.mods').forEach(div => div.style.display = 'none');
+        // Afficher la section liée à la catégorie cliquée
+        const cat = this.getAttribute('data-cat');
+        const section = document.getElementById('mods-' + cat);
+        if (section) {
+          section.style.display = 'block';
+          // Optionnel : faire défiler la page vers la section
+          section.scrollIntoView({behavior: 'smooth'});
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
