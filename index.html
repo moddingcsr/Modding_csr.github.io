@@ -1,228 +1,227 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Page Matrix Effects</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Style général */
-    html, body {
-      margin: 0; padding: 0;
-      height: 100%;
-      background: black;
-      color: #0F0; /* Vert Matrix */
-      font-family: monospace;
-      overflow: hidden;
-    }
-    /* Canvas Matrix en arrière-plan */
-    #matrix-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      background: black;
-    }
-    /* Header et navigation */
-    header {
-      position: fixed;
-      top: 0; width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 10px 0;
-      z-index: 1000;
-    }
-    nav {
-      display: flex; justify-content: center; align-items: center;
-    }
-    nav ul {
-      list-style: none; padding: 0; margin: 0;
-      display: flex;
-    }
-    nav ul li {
-      margin: 0 15px;
-      cursor: pointer;
-    }
-    nav ul li:hover {
-      text-decoration: underline;
-    }
-    /* Contenu principal */
-    main {
-      padding-top: 60px; /* laisse de l'espace sous le header */
-      max-width: 900px;
-      margin: 0 auto;
-      overflow-y: auto;
-      height: calc(100% - 60px);
-    }
-    .content-section {
-      display: none;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      margin: 20px;
-      border-radius: 5px;
-    }
-    .content-section h2 {
-      margin-top: 0;
-    }
-    /* Menu burger pour mobile */
-    #menu-toggle {
-      display: none;
-      cursor: pointer;
-      font-size: 24px;
-      position: absolute;
-      right: 20px; top: 10px;
-    }
-    @media (max-width: 600px) {
-      nav ul {
-        display: none;
-        flex-direction: column;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.9);
-      }
-      nav ul li {
-        margin: 10px 0;
-      }
-      #menu-toggle {
-        display: block;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modding PS3/PS4</title>
+    <style>
+        /* Style de base : canvas plein écran, fond noir */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+        /* Canvas Matrix en arrière-plan */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        /* Barre de navigation en haut */
+        .topnav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: right;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+        }
+        .hamburger {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 24px;
+            color: lime;
+            cursor: pointer;
+        }
+        /* Menu masqué par défaut */
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+            background: rgba(0,0,0,0.8);
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+        }
+        .menu li {
+            color: white;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
+        .menu li:hover {
+            background: #222;
+        }
+        /* Sections masquées par défaut */
+        .section {
+            display: none;
+            padding: 20px;
+        }
+        .section.active {
+            display: block;
+        }
+        /* Fiches de mods */
+        .card {
+            background: rgba(0,0,0,0.5);
+            color: #0f0;
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        .card h3 {
+            margin: 0;
+            color: #0f0;
+        }
+        .card p {
+            color: #fff;
+        }
+        .card button {
+            background: #0f0;
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Canvas pour effet Matrix -->
+    <canvas id="matrix"></canvas>
 
-  <canvas id="matrix-canvas"></canvas>
+    <!-- Barre de navigation avec hamburger -->
+    <div class="topnav">
+        <div class="hamburger" id="hamburger">&#9776;</div>
+        <ul class="menu" id="menu">
+            <li data-section="jailbreaks">Jailbreaks</li>
+            <li data-section="mods">Mods</li>
+            <li data-section="tools">Tools</li>
+            <li data-section="games">Games</li>
+            <li data-section="dlcs">DLCs</li>
+            <li data-section="unban">Unban</li>
+            <li data-section="scripts">Scripts</li>
+        </ul>
+    </div>
 
-  <header>
-    <nav>
-      <span id="menu-toggle">&#9776;</span>
-      <ul id="menu">
-        <li data-section="section-jailbreaks">Jailbreaks</li>
-        <li data-section="section-mods">Mods</li>
-        <li data-section="section-tools">Tools</li>
-        <li data-section="section-games">Games</li>
-        <li data-section="section-dlcs">DLCs</li>
-        <li data-section="section-unban">Unban</li>
-        <li data-section="section-scripts">Scripts</li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Sections correspondant aux catégories -->
+    <section id="jailbreaks" class="section">
+        <div class="card">
+            <h3>Jailbreak PS3 4.84</h3>
+            <p>Guide complet pour jailbreaker votre PS3 en version 4.84.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="mods" class="section">
+        <div class="card">
+            <h3>Mod MultiMAN</h3>
+            <p>Outil populaire de gestion de jeux et sauvegardes sur PS3.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="tools" class="section">
+        <div class="card">
+            <h3>CCAPI</h3>
+            <p>Outil de modification de paramètres de la console à distance.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="games" class="section">
+        <div class="card">
+            <h3>Mods GTA V</h3>
+            <p>Collection de mods pour GTA V sur PS3.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="dlcs" class="section">
+        <div class="card">
+            <h3>DLC The Last of Us</h3>
+            <p>Extension officielle pour The Last of Us.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="unban" class="section">
+        <div class="card">
+            <h3>Unban PSN</h3>
+            <p>Guide pour retirer un ban sur le PlayStation Network.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
+    <section id="scripts" class="section">
+        <div class="card">
+            <h3>Script Speedhack</h3>
+            <p>Script pour modifier la vitesse de jeu sur PS3/PS4.</p>
+            <button>Télécharger</button>
+        </div>
+    </section>
 
-  <main>
-    <section id="section-jailbreaks" class="content-section">
-      <h2>Jailbreaks</h2>
-      <p>Description et liens pour Jailbreaks.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Jailbreak 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Jailbreak 2</a></li>
-      </ul>
-    </section>
-    <section id="section-mods" class="content-section">
-      <h2>Mods</h2>
-      <p>Description et liens pour Mods.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Mod 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Mod 2</a></li>
-      </ul>
-    </section>
-    <section id="section-tools" class="content-section">
-      <h2>Tools</h2>
-      <p>Description et liens pour Tools.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Tool 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Tool 2</a></li>
-      </ul>
-    </section>
-    <section id="section-games" class="content-section">
-      <h2>Games</h2>
-      <p>Description et liens pour Games.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Jeu 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Jeu 2</a></li>
-      </ul>
-    </section>
-    <section id="section-dlcs" class="content-section">
-      <h2>DLCs</h2>
-      <p>Description et liens pour DLCs.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger DLC 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger DLC 2</a></li>
-      </ul>
-    </section>
-    <section id="section-unban" class="content-section">
-      <h2>Unban</h2>
-      <p>Description et liens pour Unban.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Unban Tool 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Unban Tool 2</a></li>
-      </ul>
-    </section>
-    <section id="section-scripts" class="content-section">
-      <h2>Scripts</h2>
-      <p>Description et liens pour Scripts.</p>
-      <ul>
-        <li><a href="#" style="color: #0F0;">Télécharger Script 1</a></li>
-        <li><a href="#" style="color: #0F0;">Télécharger Script 2</a></li>
-      </ul>
-    </section>
-  </main>
+    <script>
+        // Initialisation du canvas pour l'effet Matrix
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-  <script>
-    // Effet Matrix (pluie de caractères verts)
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    const fontSize = 16;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(0);
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0F0';
-      ctx.font = fontSize + 'px monospace';
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+        // Caractères à afficher (Katakana, lettres, chiffres)
+        const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1); // positions Y de départ pour chaque colonne
+
+        function drawMatrix() {
+            // Fond noir semi-transparent pour traînée
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; // texte vert
+            ctx.font = fontSize + 'px monospace';
+
+            // Pour chaque colonne, dessiner un caractère
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                ctx.fillText(text, x, y);
+
+                // Réinitialiser la colonne aléatoirement en haut
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
         }
-        drops[i]++;
-      }
-    }
-    setInterval(drawMatrix, 33);
-    window.addEventListener('resize', () => {
-      columns = Math.floor(canvas.width / fontSize);
-      drops = Array(columns).fill(0);
-    });
 
-    // Gestion du menu et des sections dynamiques
-    const menuItems = document.querySelectorAll('#menu li');
-    const sections = document.querySelectorAll('.content-section');
-    menuItems.forEach(item => {
-      item.addEventListener('click', () => {
-        sections.forEach(sec => sec.style.display = 'none');
-        const secToShow = document.getElementById(item.getAttribute('data-section'));
-        if (secToShow) secToShow.style.display = 'block';
-      });
-    });
-    // Afficher par défaut la première section
-    if (menuItems.length > 0) {
-      document.getElementById(menuItems[0].getAttribute('data-section')).style.display = 'block';
-    }
-    // Toggle du menu mobile
-    const menuToggle = document.getElementById('menu-toggle');
-    menuToggle.addEventListener('click', () => {
-      const menu = document.getElementById('menu');
-      if (menu.style.display === 'flex' || menu.style.display === 'block') {
-        menu.style.display = 'none';
-      } else {
-        menu.style.display = 'flex';
-      }
-    });
-  </script>
+        // Animation de l'effet Matrix (~30 fps)
+        setInterval(drawMatrix, 33);
 
+        // Gestion du menu hamburger
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.getElementById('menu');
+        hamburger.addEventListener('click', () => {
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        });
+
+        // Gestion de l'affichage des sections
+        const items = document.querySelectorAll('.menu li');
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                // Cacher toutes les sections
+                document.querySelectorAll('.section').forEach(sec => {
+                    sec.classList.remove('active');
+                });
+                // Afficher la section correspondant à la catégorie cliquée
+                const sectionId = item.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+                // Masquer le menu après sélection (facultatif)
+                menu.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
