@@ -207,5 +207,15 @@ function closeMenu() {
 </body>
 </html>
 <body> 
-    <  canvas id = "matrixCanvas1" > </canvas> < canvas id = " matrixCanvas2" > </canvas>< 
-    canvas id  = " matrixCanvas3 " class = " blur opacity- 4 " > </canvas> < canvas id = " overlayCanvas " class = " blur opacity - 8 " > </canvas> < script src = " matrix.js " > </script> </body>
+function  toggleBlurWithAnimation ( canvasId, interval = 1000 ) { 
+    const canvas = document.getElementById ( canvasId ); 
+    let lastTime = 0 ; 
+    let isBlurred = false ; const 
+
+    toggleBlur  = ( timestamp ) => { 
+        if (timestamp - lastTime >= interval) { lastTime
+             = timestamp; 
+            isBlurred = !isBlurred; 
+            canvas.classList.toggle ( " blur" , isBlurred);         } requestAnimationFrame (toggleBlur);     }; requestAnimationFrame (toggleBlur); }
+            const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890アイウエオ..." ; 
+const characters = matrixChars. split ( "" );
