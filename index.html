@@ -117,3 +117,90 @@ function closeMenu() {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Site de modding PS3/PS4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Style général */
+    html, body { margin: 0; padding: 0; background: #000; color: #0F0; font-family: Arial, sans-serif; }
+    h2, h3 { cursor: pointer; }
+    a { color: #0F0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* Canvas Matrix */
+    #matrixCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    /* Sections */
+    .section { padding: 20px; }
+    .mods { display: none; margin-top: 10px; }
+    .mod { background: rgba(0, 0, 0, 0.7); border: 1px solid #0F0; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
+    /* Boutons */
+    button.cat-btn { background: transparent; border: 1px solid #0F0; color: #0F0; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+    button.cat-btn:hover { background: #0F0; color: #000; }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas pour l'effet Matrix -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- Script JavaScript -->
+  <script>
+    // Animation Matrix sur le canvas
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+    // Adapter au viewport
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Caractères pour l'effet Matrix
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function drawMatrix() {
+      // Transparent pour effet de traînée
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0"; 
+      ctx.font = fontSize + "px monospace";
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        // Réinitialiser la goutte aléatoirement quand elle atteint le bas
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    let matrixInterval = setInterval(drawMatrix, 50);
+
+    // Gestion du clic sur les catégories pour afficher/masquer les sections
+    const buttons = document.querySelectorAll('.cat-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Masquer le canvas Matrix (puisqu'on est dans une catégorie)
+        canvas.style.display = 'none';
+        // Cacher toutes les sections de mods
+        document.querySelectorAll('.mods').forEach(div => div.style.display = 'none');
+        // Afficher la section liée à la catégorie cliquée
+        const cat = this.getAttribute('data-cat');
+        const section = document.getElementById('mods-' + cat);
+        if (section) {
+          section.style.display = 'block';
+          // Optionnel : faire défiler la page vers la section
+          section.scrollIntoView({behavior: 'smooth'});
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
