@@ -206,3 +206,6 @@ function closeMenu() {
 
 </body>
 </html>
+<body> 
+    <  canvas id = "matrixCanvas1" > </canvas> < canvas id = " matrixCanvas2" > </canvas>< 
+    canvas id  = " matrixCanvas3 " class = " blur opacity- 4 " > </canvas> < canvas id = " overlayCanvas " class = " blur opacity - 8 " > </canvas> < script src = " matrix.js " > </script> </body>
