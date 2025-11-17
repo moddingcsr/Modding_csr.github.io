@@ -1,190 +1,161 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>ModdingCSR - Accueil</title>
-    <style>
-        /* --- RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModdingCSR</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            color: #00ff00;
-            overflow: hidden;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: "Courier New", monospace;
+        background: url('https://i.imgur.com/6IUbXG5.png');
+        background-size: cover;
+        background-attachment: fixed;
+        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00;
+    }
 
-        /* --- CANVAS MATRIX --- */
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: black;
-        }
+    /* HEADER */
+    header {
+        text-align: center;
+        padding: 20px;
+        font-size: 40px;
+        color: #00ff00;
+        letter-spacing: 3px;
+        font-weight: bold;
+    }
 
-        /* --- HEADER / NAV --- */
-        header {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background: rgba(0,0,0,0.5);
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
+    /* NAVBAR */
+    nav {
+        display: flex;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 15px;
+        border-top: 2px solid #00ff00;
+        border-bottom: 2px solid #00ff00;
+        box-shadow: 0 0 10px #00ff00;
+    }
 
-        header h1 {
-            font-size: 35px;
-            letter-spacing: 2px;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
-        }
+    nav a {
+        color: #00ff00;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 18px;
+        transition: 0.2s;
+    }
 
-        nav {
-            margin-top: 10px;
-        }
+    nav a:hover {
+        color: white;
+        text-shadow: 0 0 10px #00ff00;
+    }
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #00ff00;
-            font-size: 18px;
-            transition: 0.2s;
-        }
+    /* MENU DÉROULANT */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-        nav a:hover {
-            color: white;
-            text-shadow: 0 0 10px white;
-        }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid #00ff00;
+        box-shadow: 0 0 15px #00ff00;
+        min-width: 180px;
+        z-index: 1000;
+    }
 
-        /* --- IMAGE PRINCIPALE --- */
-        .main-image {
-            width: 100%;
-            text-align: center;
-            margin-top: 120px;
-            margin-bottom: 20px;
-        }
+    .dropdown-content a {
+        color: #00ff00;
+        padding: 10px;
+        display: block;
+        text-decoration: none;
+    }
 
-        .main-image img {
-            max-width: 500px;
-            width: 90%;
-            border: 3px solid #00ff00;
-            box-shadow: 0 0 15px #00ff00;
-        }
+    .dropdown-content a:hover {
+        background: #002200;
+    }
 
-        /* --- ICONE DISCORD --- */
-        .icon-discord {
-            height: 20px;
-            vertical-align: middle;
-            margin-right: 5px;
-        }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-        /* --- CONTENU --- */
-        .content {
-            margin-top: 150px;
-            text-align: center;
-            padding: 20px;
-        }
+    /* IMAGE PRINCIPALE */
+    .main-image {
+        width: 100%;
+        text-align: center;
+        margin-top: 140px; /* ESPACE entre le haut et l'image */
+        margin-bottom: 40px;
+    }
 
-        .content h2 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
+    .main-image img {
+        width: 90%;
+        max-width: 600px;
+        border: 3px solid #00ff00;
+        box-shadow: 0 0 20px #00ff00;
+    }
 
-        .content p {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-    </style>
+    /* CONTENU */
+    .content {
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 30px;
+        text-shadow: 0 0 10px #00ff00;
+    }
+
+</style>
 </head>
 <body>
 
-<!-- CANVAS MATRIX -->
-<canvas id="matrix"></canvas>
+<header>ModdingCSR</header>
 
-<header>
-    <h1>ModdingCSR</h1>
-    <nav>
-        <a href="#">Accueil</a>
-        <a href="#">Modding PS3</a>
-        <a href="#">Modding PS4</a>
-        <a href="#">Tools</a>
-        <a href="#">PKG / Mods</a>
-        <a href="#">XMB Mods</a>
-        <a href="#">Téléchargements</a>
+<!-- MENU COMPLET -->
+<nav>
 
-        <!-- CONTACT DISCORD -->
-        <a href="https://discord.gg/fzwajWwYq" target="_blank">
-            <img src="discord.png" class="icon-discord"> Discord
-        </a>
-    </nav>
-</header>
+    <a href="#">Accueil</a>
+    <a href="#">Modding PS3</a>
+    <a href="#">Modding PS4</a>
+    <a href="#">Tools</a>
+
+    <!-- MENU DÉROULANT PKG/MODS -->
+    <div class="dropdown">
+        <a href="#">PKG / Mods ▼</a>
+        <div class="dropdown-content">
+            <a href="#">Black Ops 1</a>
+            <a href="#">Black Ops 2</a>
+            <a href="#">Black Ops 3</a>
+            <a href="#">Ghost</a>
+            <a href="#">Advanced Warfare</a>
+            <a href="#">Cold War</a>
+            <a href="#">MW2</a>
+            <a href="#">MW3</a>
+            <a href="#">GTA 5</a>
+        </div>
+    </div>
+
+    <a href="#">XMB Mods</a>
+    <a href="#">Téléchargements</a>
+
+    <!-- DISCORD -->
+    <a href="https://discord.gg/fzwajWwYq" target="_blank">Discord</a>
+
+</nav>
 
 <!-- IMAGE PRINCIPALE -->
 <div class="main-image">
-    <img src="https://raw.githubusercontent.com/moddingcsr/Modding_csr.github.io/refs/heads/main/IMG_1020.JPEG" alt="Image ModdingCSR">
+    <img src="https://raw.githubusercontent.com/moddingcsr/Modding_csr.github.io/main/IMG_1020.JPEG" alt="Image ModdingCSR">
 </div>
 
+<!-- TEXTE -->
 <div class="content">
     <h2>Bienvenue sur ModdingCSR</h2>
     <p>Votre espace modding PS3 / PS4. Personnalisez cette page comme vous voulez !</p>
 </div>
-  <!-- PKG / MODS : section avec les dossiers de jeux -->
-    <section id="pkg" class="pkg-list">
-        <h3>PKG / Mods — Jeux</h3>
-        <ul>
-            <li>⚜️ Black Ops 1</li>
-            <li>⚜️ Black Ops 2</li>
-            <li>⚜️ Black Ops 3</li>
-            <li>⚜️ Ghost</li>
-            <li>⚜️ Advanced Warfare</li>
-            <li>⚜️ Cold War</li>
-            <li>⚜️ MW2</li>
-            <li>⚜️ MW3</li>
-            <li>⚜️ GTA 5</li>
-        </ul>
-        <p style="margin-top:8px; color:#bfffbf;">Clique sur un dossier pour l'ouvrir (lien à ajouter dans chaque &lt;li&gt;).</p>
-    </section>
-</div>
-
-<!-- SCRIPT MATRIX -->
-<script>
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
-
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-
-    const chars = "01ABCDEFGHIJKLMNOPQRSTUVXYZ";
-    const fontSize = 15;
-    const columns = canvas.width / fontSize;
-
-    const drops = [];
-
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#00ff00";
-        ctx.font = fontSize + "px monospace";
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = chars.charAt(Math.floor(Math.random() * chars.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-                drops[i] = 0;
-
-            drops[i]++;
-        }
-    }
-
-    setInterval(draw, 35);
-</script>
 
 </body>
 </html>
